@@ -21,7 +21,7 @@ export class Searchbar extends Component {
     if (this.state.query === e.target.value) {
       return;
     }
-    this.props.onSubmit(this.state.query, this.state.page);
+    this.props.onSubmit(this.state.query);
     this.setState({ query: "" });
   };
 
@@ -50,5 +50,5 @@ export class Searchbar extends Component {
 }
 
 Searchbar.propTypes = {
-  onSubmit: propTypes.func,
+  onSubmit: propTypes.func.isRequired,
 };
