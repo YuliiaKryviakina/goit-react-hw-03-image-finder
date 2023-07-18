@@ -43,7 +43,7 @@ export class App extends Component {
     }
     try {
       this.setState({ isLoading: true });
-      const data = await fetchImages(query, page);
+      const {data} = await fetchImages(query, page);
       if (data.hits.length === 0) {
         return;
       }
@@ -51,8 +51,8 @@ export class App extends Component {
         imageProfiles: [...prevState.imageProfiles, ...data.hits],
         totalHits: data.totalHits,
       }));
-    } catch {
-      window.alert("Something went wrong");
+    } catch(error) {
+      console.log(error.message);
     } finally {
       this.setState({ isLoading: false });
     }
@@ -106,9 +106,6 @@ export class App extends Component {
       <div
         style={{
           height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
           fontSize: 40,
           color: "#010101",
         }}
