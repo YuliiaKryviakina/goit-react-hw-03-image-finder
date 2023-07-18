@@ -1,24 +1,36 @@
-import { Component } from "react";
-import { Searchbar } from "./Searchbar/Searchbar";
-import { ImageGallery } from "./ImageGallery/ImageGallery";
-import { Button } from "./Button/Button";
-import { Loader } from "./Loader/Loader";
-import { Modal } from "./Modal/Modal";
-import { fetchImages } from "utils/image-servise";
+import { Component } from 'react';
+import { Searchbar } from './Searchbar/Searchbar';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Button } from './Button/Button';
+import { Loader } from './Loader/Loader';
+import { Modal } from './Modal/Modal';
+import { fetchImages } from 'utils/image-servise';
 
 export class App extends Component {
   state = {
     page: 1,
-    query: "",
+    query: '',
     imageProfiles: [],
     isLoading: false,
-    totalHits: "",
+    totalHits: '',
     isButtonActive: false,
     showModal: false,
-    largeImage: "",
+    largeImage: '',
   };
 
-  handleSubmit = (query) => {
+  // export class App extends Component {
+  // state = {
+  //   page: 1,
+  //   query: "",
+  //   imageProfiles: [],
+  //   isLoading: false,
+  //   totalHits: "",
+  //   isButtonActive: false,
+  //   showModal: false,
+  //   largeImage: "",
+  // };
+
+  handleSubmit = query => {
     if (query === this.state.query) {
       return;
     }
@@ -35,19 +47,19 @@ export class App extends Component {
       if (data.hits.length === 0) {
         return;
       }
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         imageProfiles: [...prevState.imageProfiles, ...data.hits],
         totalHits: data.totalHits,
       }));
     } catch {
-      window.alert("Somthing went wrong");
+      window.alert('Somthing went wrong');
     } finally {
       this.setState({ isLoading: false });
     }
   };
 
   handleLoadMore = () => {
-    this.setState((prevState) => ({ page: prevState.page + 1 }));
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -74,7 +86,7 @@ export class App extends Component {
     }
   }
 
-  modalOpen = (largeImage) => {
+  modalOpen = largeImage => {
     this.setState({ largeImage, showModal: true });
   };
   onClose = () => {
@@ -82,23 +94,18 @@ export class App extends Component {
   };
 
   render() {
-    const {
-      imageProfiles,
-      isButtonActive,
-      isLoading,
-      largeImage,
-      showModal,
-    } = this.state;
+    const { imageProfiles, isButtonActive, isLoading, largeImage, showModal } =
+      this.state;
 
     return (
       <div
         style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          height: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           fontSize: 40,
-          color: "#010101",
+          color: '#010101',
         }}
       >
         <Searchbar />
